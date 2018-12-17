@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Validator;
+package Validator.Core;
 
 /**
  *
  * @author thinhnh
  */
-import Validator.Core.Selector;
+public final class Constants {
 
-@FunctionalInterface
-public interface Validator {
+    public static final String ATTRIBUTE_SEPARATOR = ".";
+    public static final String ATTRIBUTE_SEPARATOR_PATTERN = "\\.";
 
-    public Selector validate(Object... elements);
+    private Constants() {
+    }
 }

@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Validator;
+package Validator.Core;
 
 /**
  *
  * @author thinhnh
  */
-import Validator.Core.Selector;
-
 @FunctionalInterface
-public interface Validator {
+public interface ParametrizedRuleBuilder<T> {
 
-    public Selector validate(Object... elements);
+    public ParametrizedRules<T> build();
 }

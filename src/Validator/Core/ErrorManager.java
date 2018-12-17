@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Validator;
+package Validator.Core;
 
 /**
  *
  * @author thinhnh
  */
-import Validator.Core.Selector;
+public interface ErrorManager {
 
-@FunctionalInterface
-public interface Validator {
+    void addErrorMessage(String attributeName, String message);
 
-    public Selector validate(Object... elements);
+    void check();
 }

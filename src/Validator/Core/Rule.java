@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Validator.Interfaces;
+package Validator.Core;
 
 /**
  *
  * @author thinhnh
  */
-public interface IRule {
+@FunctionalInterface
+public interface Rule<T> {
 
-    boolean isVaild();
+    public void validate(T value, String name, Selector selector, ErrorManager errorManager);
 }
