@@ -7,6 +7,7 @@ package Validator.Core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -51,5 +52,28 @@ public class ErrorManagerBase implements ErrorManager {
 
             throw new ValidatorException(sb.toString(), _errors);
         }
+    }
+
+    @Override
+    public String getResult() {
+        StringBuilder sb = new StringBuilder();
+        if (_errors != null) {
+            sb.append("Errors:\n");
+            for (Entry<String, ArrayList<String>> e : _errors.entrySet()) {
+                sb.append("\t- attribute '");
+                sb.append(e.getKey());
+                sb.append("' (");
+                sb.append(e.getValue().size());
+                sb.append("):\n");
+                for (String msg : e.getValue()) {
+                    sb.append("\t\t+ ");
+                    sb.append(msg);
+                    sb.append("\n");
+                }
+                sb.append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 }

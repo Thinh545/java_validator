@@ -104,7 +104,7 @@ public final class ValidatorBuilder {
         }
 
         @Override
-        public Selector validate(Object... elements) {
+        public Selector validate_selector(Object... elements) {
             ErrorManager errorManager = new ErrorManagerBase();
             Selector selector = new SelectorBase(_index, elements);
             _rules.stream().forEach(rule -> rule.validate(errorManager, selector));
@@ -115,6 +115,20 @@ public final class ValidatorBuilder {
             }
             errorManager.check();
             return selector;
+        }
+        
+        @Override
+        public ErrorManager validate_error_manager(Object... elements) {
+            ErrorManager errorManager = new ErrorManagerBase();
+            Selector selector = new SelectorBase(_index, elements);
+            _rules.stream().forEach(rule -> rule.validate(errorManager, selector));
+            for (ParametrizedRulesChainAdapter adapter : _rulesAdapter) {
+                Selector adaptedSelector = adapter.getSelector(selector);
+                ErrorManager adaptedErrorManager = adapter.getErrorManager(errorManager);
+                adapter.getParametrizedRules().stream().forEach(rule -> rule.validate(adaptedErrorManager, adaptedSelector));
+            }
+
+            return errorManager;
         }
     }
 }

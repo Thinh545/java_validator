@@ -12,8 +12,8 @@ package validator_app;
 import Validator.Validator;
 import static Validator.ValidatorBuilder.*;
 import Validator.Core.Selector;
-import Validator.Core.ValidatorException;
-import static Validator.Rules.ParametrizedRuleBuilderBase.*;
+import Validator.Core.ErrorManager;
+import Validator.Messages.MessageFactory;
 import static Validator.Rules.StringRuleBuilder.*;
 
 public class Validator_App {
@@ -23,9 +23,11 @@ public class Validator_App {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MessageFactory.create();
         String name = "ste";
         Validator nameValidator = rules(stringRule("name").notEmpty().minLength(5).notStartsWith("st")).build();
-        Selector sel = nameValidator.validate(name);
+        ErrorManager errors = nameValidator.validate_error_manager(name);
+        System.out.println(errors.getResult());
     }
 
 }

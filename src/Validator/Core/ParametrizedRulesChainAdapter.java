@@ -106,5 +106,10 @@ public class ParametrizedRulesChainAdapter {
         public void check() {
             _errorManager.check();
         }
+        
+        @Override
+        public String getResult() {
+            return _errorManager.getResult();
+        }
     }
 }

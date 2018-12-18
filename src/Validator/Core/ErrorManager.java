@@ -9,9 +9,13 @@ package Validator.Core;
  *
  * @author thinhnh
  */
+import java.util.List;
+
 public interface ErrorManager {
 
     void addErrorMessage(String attributeName, String message);
 
     void check();
+
+    String getResult();
 }

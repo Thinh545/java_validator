@@ -10,9 +10,11 @@ package Validator;
  * @author thinhnh
  */
 import Validator.Core.Selector;
+import Validator.Core.ErrorManager;
 
-@FunctionalInterface
 public interface Validator {
 
-    public Selector validate(Object... elements);
+    public Selector validate_selector(Object... elements);
+
+    public ErrorManager validate_error_manager(Object... elements);
 }
