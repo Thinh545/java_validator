@@ -5,38 +5,58 @@
  */
 package Validator.Messages;
 
+import com.sun.org.apache.regexp.internal.REUtil;
+
 /**
  *
  * @author HP
  */
 public class MessageFactory {
-    private MessageFactory(){
-        
+    private MessageFactory() {
     }
-    
-    public static void create(){
+
+    public static void create() {
         create(LanguageCodes.ENG);
     }
-    
-    public static void create(LanguageCodes code){
-        switch(code){
-            case ENG:
-                MessageContainer.notNull = "x cannot be null.";
-                MessageContainer.nullable = "x is nullable";
-                MessageContainer.mustBeNull = "x must be null";
-                MessageContainer.in = "x must be in ...";
-                MessageContainer.notIn = "x must not be in ...";
-                MessageContainer.equalsTo = "x equals to y";
-                MessageContainer.notEqualsTo = "x is not equal to y";
+
+    public static void create(LanguageCodes code) {
+
+        switch (code) {
+        case ENG:
+            MessageContainer.notNull = "cannot be null";
+            MessageContainer.nullable = "is nullable";
+            MessageContainer.mustBeNull = "must be null";
+            MessageContainer.in = "must be in ...";
+            MessageContainer.notIn = "must not be in ...";
+            MessageContainer.equalsTo = "equals to ";
+            MessageContainer.notEqualsTo = "is not equal to ";
+
+            MessageContainer.greatherThan = "greather than ";
+            MessageContainer.lessThan = "less than ";
+            MessageContainer.greatherEqualsThan = " greather equals than ";
+            MessageContainer.lessEqualsThan = "less equals than";
+
+            MessageContainer.empty = "must be empty";
+            MessageContainer.notEmpty = "cannot be empty";
+            MessageContainer.startsWith = "must start with ";
+            MessageContainer.notStartsWith = "cannot start with ";
+            MessageContainer.endsWith = "must end with ";
+            MessageContainer.notEnds = "cannot end with ";
+            MessageContainer.contains = "must contain ";
+            MessageContainer.notContains = "cannot contain ";
+            MessageContainer.matches = "must match ";
+            MessageContainer.notMatches = "cannot match ";
+            MessageContainer.length = "length = ";
+
             break;
-            case VN:
-                MessageContainer.notNull = "x không được null.";
-                MessageContainer.nullable = "x có thể null";
-                MessageContainer.mustBeNull = "x phải bằng null";
-                MessageContainer.in = "x phải nằm trong ...";
-                MessageContainer.notIn = "x không được nằm trong ...";
-                MessageContainer.equalsTo = "x bằng y";
-                MessageContainer.notEqualsTo = "x không bằng y";
+        case VN:
+            MessageContainer.notNull = "x không được null.";
+            MessageContainer.nullable = "x có thể null";
+            MessageContainer.mustBeNull = "x phải bằng null";
+            MessageContainer.in = "x phải nằm trong ...";
+            MessageContainer.notIn = "x không được nằm trong ...";
+            MessageContainer.equalsTo = "x bằng y";
+            MessageContainer.notEqualsTo = "x không bằng y";
             break;
         }
     }

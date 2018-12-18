@@ -10,6 +10,10 @@ package Validator.Messages;
  * @author HP
  */
 public class MessageContainer {
+    /*
+     ** Parametrized Messages
+     *
+     */
     public static String notNull = "";
     public static String nullable = "";
     public static String mustBeNull = "";
@@ -17,8 +21,36 @@ public class MessageContainer {
     public static String notIn = "";
     public static String equalsTo = "";
     public static String notEqualsTo = "";
-    
-    private MessageContainer(){
-        
+
+    /*
+     ** Comparable Messages
+     *
+     */
+    public static String greatherThan = "";
+    public static String lessThan = "";
+    public static String greatherEqualsThan = "";
+    public static String lessEqualsThan = "";
+    public static String range = "";
+
+    /*
+     ** String Messages
+     *
+     */
+    public static String empty = "";
+    public static String notEmpty = "";
+    public static String startsWith = "";
+    public static String notStartsWith = "";
+    public static String endsWith = "";
+    public static String notEnds = "";
+    public static String contains = "";
+    public static String notContains = "";
+    public static String matches = "";
+    public static String notMatches = "";
+    public static String length = "";
+    public static String minLength = "";
+    public static String maxLength = "";
+
+    public MessageContainer() {
+
     }
 }

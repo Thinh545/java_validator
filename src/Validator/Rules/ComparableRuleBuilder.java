@@ -10,38 +10,45 @@ package Validator.Rules;
  * @author thinhnh
  */
 import Validator.Core.ParametrizedRules;
+import Validator.Messages.MessageContainer;
 
-public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRuleBuilder<T, F>> extends ParametrizedRuleBuilderBase<T, F> {
+public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRuleBuilder<T, F>>
+        extends ParametrizedRuleBuilderBase<T, F> {
 
     protected ComparableRuleBuilder(ParametrizedRules<T> attributeRule) {
         super(attributeRule);
     }
 
     public F greatherThan(T parameter) {
-        return addRule(t -> t.compareTo(parameter) > 0);
+        String message = MessageContainer.greatherThan + parameter.toString();
+        return addRule(t -> t.compareTo(parameter) > 0, message);
     }
 
     public F lessThan(T parameter) {
-        return addRule(t -> t.compareTo(parameter) < 0);
+        String message = MessageContainer.lessThan + parameter.toString();
+        return addRule(t -> t.compareTo(parameter) < 0, message);
     }
 
     public F greatherEqualsThan(T parameter) {
-        return addRule(t -> t.compareTo(parameter) >= 0);
+        String message = MessageContainer.greatherEqualsThan + parameter.toString();
+        return addRule(t -> t.compareTo(parameter) >= 0, message);
     }
 
     public F lessEqualsThan(T parameter) {
-        return addRule(t -> t.compareTo(parameter) <= 0);
+        String message = MessageContainer.lessEqualsThan + parameter.toString();
+        return addRule(t -> t.compareTo(parameter) <= 0, message);
     }
 
-    private boolean range(T target, T min, T max) {
+    private boolean _range(T target, T min, T max) {
         return min.compareTo(target) <= 0 && 0 < max.compareTo(target);
     }
 
     public F range(T minValue, T maxValue) {
-        return addRule(t -> range(t, minValue, maxValue));
+        return addRule(t -> _range(t, minValue, maxValue));
     }
 
-    public static final class ComparableRuleBuilderBase extends ComparableRuleBuilder<Comparable, ComparableRuleBuilderBase> {
+    public static final class ComparableRuleBuilderBase
+            extends ComparableRuleBuilder<Comparable, ComparableRuleBuilderBase> {
 
         private ComparableRuleBuilderBase(ParametrizedRules<Comparable> parameterRule) {
             super(parameterRule);

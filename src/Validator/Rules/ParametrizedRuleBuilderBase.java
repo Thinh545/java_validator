@@ -15,13 +15,15 @@ import Validator.Core.Selector;
 import Validator.Core.ParametrizedRules;
 import Validator.Core.ParametrizedRules.NullConstraint;
 import Validator.Core.ParametrizedRuleBuilder;
+import Validator.Messages.MessageContainer;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class ParametrizedRuleBuilderBase<T, F extends ParametrizedRuleBuilderBase<T, F>> implements ParametrizedRuleBuilder<T> {
+public class ParametrizedRuleBuilderBase<T, F extends ParametrizedRuleBuilderBase<T, F>>
+        implements ParametrizedRuleBuilder<T> {
 
     private ParametrizedRules<T> _parameterRules;
 
@@ -40,6 +42,14 @@ public class ParametrizedRuleBuilderBase<T, F extends ParametrizedRuleBuilderBas
 
     public final F addRule(Predicate<T> predicate) {
         return addRule(new RuleBase<>((target, s) -> predicate.test(target)));
+    }
+
+    public final F addRule(BiPredicate<T, Selector> predicate, String message) {
+        return addRule(new RuleBase<>(predicate, message));
+    }
+
+    public final F addRule(Predicate<T> predicate, String message) {
+        return addRule(new RuleBase<>((target, s) -> predicate.test(target), message));
     }
 
     private F setNullConstraint(NullConstraint constraint) {
@@ -76,11 +86,13 @@ public class ParametrizedRuleBuilderBase<T, F extends ParametrizedRuleBuilderBas
     }
 
     public F equalsTo(T parameter) {
-        return addRule(t -> t.equals(parameter));
+        String message = MessageContainer.equalsTo + parameter.toString();
+        return addRule(t -> t.equals(parameter), message);
     }
 
     public F notEqualsTo(T parameter) {
-        return addRule(t -> !t.equals(parameter));
+        String message = MessageContainer.notEqualsTo + parameter.toString();
+        return addRule(t -> !t.equals(parameter), message);
     }
 
     @Override
@@ -91,7 +103,8 @@ public class ParametrizedRuleBuilderBase<T, F extends ParametrizedRuleBuilderBas
         return _parameterRules;
     }
 
-    public static <F extends ParametrizedRuleBuilderBase<Object, F>> ParametrizedRuleBuilderBase<Object, F> objectRule(String name) {
+    public static <F extends ParametrizedRuleBuilderBase<Object, F>> ParametrizedRuleBuilderBase<Object, F> objectRule(
+            String name) {
         return new ParametrizedRuleBuilderBase<>(new ParametrizedRules<>(name, Object.class));
     }
 }
