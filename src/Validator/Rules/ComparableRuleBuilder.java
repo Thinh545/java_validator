@@ -20,7 +20,7 @@ public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRul
     }
 
     public F greatherThan(T parameter) {
-        String message = MessageContainer.greatherThan + parameter.toString();
+        String message = MessageContainer.greaterThan + parameter.toString();
         return addRule(t -> t.compareTo(parameter) > 0, message);
     }
 
@@ -30,7 +30,7 @@ public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRul
     }
 
     public F greatherEqualsThan(T parameter) {
-        String message = MessageContainer.greatherEqualsThan + parameter.toString();
+        String message = MessageContainer.greaterEqualsThan + parameter.toString();
         return addRule(t -> t.compareTo(parameter) >= 0, message);
     }
 

@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/thinhnh/Desktop/KCPM-CK/java_validator/src/Validator/Core/ErrorManagerBase.java</file>
-            <file>file:/home/thinhnh/Desktop/KCPM-CK/java_validator/src/Validator/Core/ErrorManager.java</file>
+            <file>file:/M:/Final%20year/Design%20patterns/java_validator/src/Validator/Rules/ParametrizedRuleBuilderBase.java</file>
+            <file>file:/M:/Final%20year/Design%20patterns/java_validator/src/Validator/Messages/MessageFactory.java</file>
+            <file>file:/M:/Final%20year/Design%20patterns/java_validator/src/Validator/Messages/LanguageCodes.java</file>
         </group>
     </open-files>
 </project-private>

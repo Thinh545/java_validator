@@ -30,9 +30,9 @@ public class MessageFactory {
                 MessageContainer.equalsTo = "equals to ";
                 MessageContainer.notEqualsTo = "is not equal to ";
 
-                MessageContainer.greatherThan = "greather than ";
+                MessageContainer.greaterThan = "greater than ";
                 MessageContainer.lessThan = "less than ";
-                MessageContainer.greatherEqualsThan = " greather equals than ";
+                MessageContainer.greaterEqualsThan = " greater equals than ";
                 MessageContainer.lessEqualsThan = "less equals than";
 
                 MessageContainer.empty = "must be empty";
@@ -58,6 +58,25 @@ public class MessageFactory {
                 MessageContainer.notIn = "x không được nằm trong ...";
                 MessageContainer.equalsTo = "x bằng y";
                 MessageContainer.notEqualsTo = "x không bằng y";
+                
+                MessageContainer.greaterThan = "lớn hơn ";
+                MessageContainer.lessThan = "bé hơn ";
+                MessageContainer.greaterEqualsThan = " lớn hơn hoặc bằng ";
+                MessageContainer.lessEqualsThan = "bé hơn hoặc bằng ";
+
+                MessageContainer.empty = "phải là rỗng";
+                MessageContainer.notEmpty = "không thể rỗng";
+                MessageContainer.startsWith = "phải bắt đầu bằng ";
+                MessageContainer.notStartsWith = "không thể bằng đầu bằng ";
+                MessageContainer.endsWith = "phải kết thúc bằng ";
+                MessageContainer.notEnds = "không thể kết thúc bằng ";
+                MessageContainer.contains = "phải chứa ";
+                MessageContainer.notContains = "không thể chứa ";
+                MessageContainer.matches = "phải trùng với ";
+                MessageContainer.notMatches = "không thể trùng với ";
+                MessageContainer.length = "độ dài bằng ";
+                MessageContainer.minLength = "độ dài bé nhất bằng ";
+                MessageContainer.maxLength = "độ dài lớn nhất bằng ";
                 break;
         }
     }

@@ -26,9 +26,9 @@ public class MessageContainer {
      ** Comparable Messages
      *
      */
-    public static String greatherThan = "";
+    public static String greaterThan = "";
     public static String lessThan = "";
-    public static String greatherEqualsThan = "";
+    public static String greaterEqualsThan = "";
     public static String lessEqualsThan = "";
     public static String range = "";
 
