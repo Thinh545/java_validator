@@ -22,10 +22,10 @@ public class Validator_App {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // TODO code application logic here 
         MessageFactory.create();
         String name = "ste";
-        Validator nameValidator = rules(stringRule("name").notEmpty().minLength(5).notStartsWith("st")).build();
+        Validator nameValidator = rules(stringRule("name").notEmpty().minLength(5).notStartsWith("st").notMatches("ste")).build();
         ErrorManager errors = nameValidator.validate_error_manager(name);
         System.out.println(errors.getResult());
     }
