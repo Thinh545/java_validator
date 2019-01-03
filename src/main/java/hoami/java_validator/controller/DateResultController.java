@@ -1,6 +1,7 @@
 package hoami.java_validator.controller;
 
 import static hoami.java_validator.Validator.Rules.ComparableRuleBuilder.cmpRule;
+import static hoami.java_validator.Validator.Rules.StringRuleBuilder.stringRule;
 import static hoami.java_validator.Validator.ValidatorBuilder.rules;
 
 import java.io.IOException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hoami.java_validator.Validator.Validator;
+import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
+import hoami.java_validator.Validator.Core.Selector;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 
 import java.util.Date;
@@ -62,15 +65,22 @@ public class DateResultController extends HttpServlet {
 		Date max = new Date();
 		min.setTime(0);
 		
-        Validator nameValidator = rules(cmpRule("date").notNull().lessThan(max).greatherThan(min)).build();
-        ErrorManager errors = nameValidator.validate_error_manager(date);
-        System.out.println(errors.getResult());
-        if(errors.getResult().length() > 0) {
-        	 pw.write("<h1>" + errors.getResult() + "</h1>");
-        }
-        else {
-        	 pw.write("<h1>Your date is legal</h1>");
-        }
+		Validator dateValidator = ValidatorRegistry.register("date", rules(cmpRule("date").notNull().lessThan(max).greatherThan(min)));
+		
+		try {
+			Selector dateSelector = dateValidator.validate_selector(date);
+			Date passwordResult = dateSelector.select("date", Date.class);
+	        
+			System.out.println("");
+			System.out.println(passwordResult);
+			pw.write("Your user data is valid: " + passwordResult);
+		}
+		catch(Exception e) {
+			System.out.println("");
+			ErrorManager errors = dateValidator.validate_error_manager(date);
+			e.printStackTrace();
+			pw.write(errors.getResult());
+		}
 	}
 
 }

@@ -3,56 +3,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Design Pattern</title>
 </head>
-<body>
-	<div>
-		<label>EMAIL VALIDATE</label>
+<body style="font-family: 'Slabo 27px', serif;">
+	<div class="container">
+		<h2 class="text-info">EMAIL VALIDATE</h2>
+
+		<form class="form-group" action="emailresult" method="POST">
+			<input class="form-control" placeholder="Email" name="email"/>
+			<input class="btn btn-success" type="submit" value="Validate Email"/>
+		</form>
+
+		<h2 class="text-info">PASSWORD VALIDATE</h2>
+		<form class="form-group" action="passwordresult" method="POST">
+			<input class="form-control" placeholder="Password" name="password"/>
+			<input class="btn btn-success" type="submit" value="Validate Password"/>
+		</form>
+
+		<h2 class="text-info">DATE VALIDATE</h2>
+		<form class="form-group" action="dateresult" method="POST">
+			<input class="form-control" type="date" placeholder="Date" name="date"/>
+			<input class="btn btn-success" type="submit" value="Validate Date"/>
+		</form>
+
+		<h2 class="text-info">USER VALIDATE</h2>
+		<form class="form-group" action="userresult" method="POST">
+
+			<input class="form-control" placeholder="Name" name="username"/>
+
+			<input class="form-control" placeholder="Age" name="userage"/>
+
+			<input class="form-control" type="date" placeholder="Date" name="userdate"/>
+	
+			<input class="form-control" placeholder="Email" name="useremail"/>
+		
+			<input class="form-control" placeholder="Password" name="userpassword"/>
+		
+			<input class="btn btn-success" type="submit"/>
+
+		</form>
 	</div>
-	<form action="emailresult" method="POST">
-		<input placeholder="Email" name="email"/>
-		<input type="submit" value="Validate Email"/>
-	</form>
-	<div>
-		<h1></h1>
-		<label>PASSWORD VALIDATE</label>
-	</div>
-	<form action="passwordresult" method="POST">
-		<input placeholder="Password" name="password"/>
-		<input type="submit" value="Validate Password"/>
-	</form>
-	<div>
-		<h1></h1>
-		<label>DATE VALIDATE</label>
-	</div>
-	<form action="dateresult" method="POST">
-		<input type="date" placeholder="Date" name="date"/>
-		<input type="submit" value="Validate Date"/>
-	</form>
-	<div>
-		<h1></h1>
-		<label>USER VALIDATE</label>
-	</div>
-	<form action="userresult" method="POST">
-		<div>
-			<input placeholder="Name" name="username"/>
-		</div>
-		<div>
-			<input placeholder="Age" name="userage"/>
-		</div>
-		<div>
-			<input type="date" placeholder="Date" name="userdate"/>
-		</div>
-		<div>
-			<input placeholder="Email" name="useremail"/>
-		</div>
-		<div>
-			<input placeholder="Password" name="userpassword"/>
-		</div>
-		<div>
-			<input type="submit"/>
-		</div>
-	</form>
+	
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

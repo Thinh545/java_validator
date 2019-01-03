@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hoami.java_validator.Validator.Validator;
+import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
+import hoami.java_validator.Validator.Core.Selector;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 
 import static hoami.java_validator.Validator.Rules.StringRuleBuilder.stringRule;
@@ -43,21 +45,34 @@ public class PasswordResultController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{0,}$";
+		//This matches the presence of at least one lowercase letter.
+		//This matches the presence of at least one digit i.e. 0-9.
+		//This matches the presence of at least one special character.
+		//This matches the presence of at least one capital letter.
 		
 		String value = (String) request.getParameter("password");
 		
 		System.out.println("Entered servlet email result");
 		PrintWriter pw = response.getWriter();
 		MessageFactory.create();
-        Validator nameValidator = rules(stringRule("password").notEmpty().minLength(5).maxLength(20).contains("@")).build();
-        ErrorManager errors = nameValidator.validate_error_manager(value);
-        System.out.println(errors.getResult());
-        if(errors.getResult().length() > 0) {
-        	 pw.write("<h1>" + errors.getResult() + "</h1>");
-        }
-        else {
-        	 pw.write("<h1>Your password is legal</h1>");
-        }
+		
+		Validator passwordValidator = ValidatorRegistry.register("password", rules(stringRule("password").notEmpty().minLength(5).maxLength(20).matches(PASSWORD_PATTERN)));
+		
+		try {
+			Selector userSelector = passwordValidator.validate_selector(value);
+			String passwordResult = userSelector.select("password", String.class);
+	        
+			System.out.println("");
+			System.out.println(passwordResult);
+			pw.write("Your user data is valid: " + passwordResult);
+		}
+		catch(Exception e) {
+			System.out.println("");
+			ErrorManager errors = passwordValidator.validate_error_manager(value);
+			e.printStackTrace();
+			pw.write(errors.getResult());
+		}
 	}
 
 }
