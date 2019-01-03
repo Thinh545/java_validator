@@ -11,7 +11,7 @@ package hoami.java_validator.Validator;
  */
 import hoami.java_validator.Validator.Core.Selector;
 import hoami.java_validator.Validator.Core.ErrorManager;
-
+ 
 public interface Validator {
 
     public Selector validate_selector(Object... elements);

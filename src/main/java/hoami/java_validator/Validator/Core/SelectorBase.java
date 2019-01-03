@@ -28,7 +28,8 @@ public class SelectorBase implements Selector {
         this._objects = objects;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T select(String name, Class<T> type) {
         String[] attributePath = name.split("\\.");
         Integer index = _indexes.get(attributePath[0]);
@@ -47,6 +48,8 @@ public class SelectorBase implements Selector {
             Object temp = o;
             while (temp != null && i < keys.length) {
                 String methodName = _getMethodName(keys[i++]);
+                Class c = temp.getClass();
+                String s = c.getName();
                 Method method = temp.getClass().getMethod(methodName);
                 temp = method.invoke(temp);
             }

@@ -121,7 +121,10 @@ public final class ValidatorBuilder {
         public ErrorManager validate_error_manager(Object... elements) {
             ErrorManager errorManager = new ErrorManagerBase();
             Selector selector = new SelectorBase(_index, elements);
-            _rules.stream().forEach(rule -> rule.validate(errorManager, selector));
+            _rules.stream().forEach(
+            	rule -> rule
+            	.validate(errorManager, selector)
+            );
             for (ParametrizedRulesChainAdapter adapter : _rulesAdapter) {
                 Selector adaptedSelector = adapter.getSelector(selector);
                 ErrorManager adaptedErrorManager = adapter.getErrorManager(errorManager);

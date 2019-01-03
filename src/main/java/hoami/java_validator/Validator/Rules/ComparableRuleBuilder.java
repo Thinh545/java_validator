@@ -7,11 +7,12 @@ package hoami.java_validator.Validator.Rules;
 
 import java.lang.reflect.Method;
 
-import hoami.java_validator.Validator.Annotations.ReadConstraints;
+
 /**
  *
  * @author thinhnh
  */
+import hoami.java_validator.Validator.Annotations.ReadConstraints;
 import hoami.java_validator.Validator.Core.ParametrizedRules;
 import hoami.java_validator.Validator.Messages.MessageContainer;
 
@@ -51,7 +52,7 @@ public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRul
     }
 
     @ReadConstraints(constraints = " use _range - ")
-    private boolean _range(T target, T min, T max) {
+    public boolean _range(T target, T min, T max) {
     	readConstraints("_range");
         return min.compareTo(target) <= 0 && 0 < max.compareTo(target);
     }
@@ -76,10 +77,10 @@ public class ComparableRuleBuilder<T extends Comparable, F extends ComparableRul
     
     private static void readConstraints(String constraints){
     	@SuppressWarnings("rawtypes")
-		Class<StringRuleBuilder> s = StringRuleBuilder.class;
+		Class<ComparableRuleBuilder> s = ComparableRuleBuilder.class;
 		Method[] methods = s.getMethods(); 
         Method method = null; 
-        for (Method m : methods) { 
+        for (Method m : methods) {
             if (m.getName().equals(constraints)) {
             	 method = m; 
             	 break;

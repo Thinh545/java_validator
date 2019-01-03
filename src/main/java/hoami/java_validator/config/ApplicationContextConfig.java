@@ -18,4 +18,6 @@ public class ApplicationContextConfig {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+  
+ 
 }
