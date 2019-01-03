@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hoami.java_validator.Validator.Validator;
+import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
 import hoami.java_validator.Validator.Core.Selector;
 import hoami.java_validator.Validator.Messages.MessageFactory;
@@ -54,11 +55,12 @@ public class UserResultController extends HttpServlet {
 		doGet(request, response);
 		
 		String username = (String) request.getParameter("username");
-		int userage = Integer.parseInt(request.getParameter("userage"));
+		int userage = -1;
 		Date userdate = null;
 		try {
+			userage = Integer.parseInt(request.getParameter("userage"));
 			userdate = new SimpleDateFormat("yyyy-MM-dd").parse((request.getParameter("userdate")));
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -72,16 +74,16 @@ public class UserResultController extends HttpServlet {
 		Date minDate = new Date(), maxDate = new Date();
 		minDate.setTime(0);
 		
-		Validator userValidator = rules(
+		Validator userValidator = ValidatorRegistry.register("user_validator", rules(
 				stringRule("username").notEmpty().maxLength(50),
 				cmpRule("userage").notNull().greatherEqualsThan(1),
 				cmpRule("userbirthday").notNull().range(minDate, maxDate),
 				stringRule("useremail").notEmpty().notStartsWith("@").contains("@gmail.com").endsWith("com"),
 				stringRule("userpassword").notEmpty().notContains("!").notContains("&").notContains("*").minLength(8).maxLength(50)
-		).build();
-		
+		));
+				
 		try {
-			Selector userSelector = userValidator.validate_selector(username, userage, userdate, useremail, userpassword);
+			Selector userSelector = userValidator.validate_selector(user);
 			String userNameResult = userSelector.select("username", String.class);
 			int userAgeResult = userSelector.select("userage", Integer.class);
 			Date userBirthdayResult = userSelector.select("userbirthday", Date.class);
@@ -90,7 +92,7 @@ public class UserResultController extends HttpServlet {
 	        
 			System.out.println("");
 			System.out.println(userNameResult + " -- " + userAgeResult + " -- " + userBirthdayResult + " -- " + userEmailResult + " -- " + userPasswordResult);
-			pw.write("<h1>Your user data is valid</h1>");
+			pw.println("<h1>Your user data is valid: " + userNameResult + " -- " + userAgeResult + " -- " + userBirthdayResult + " -- " + userEmailResult + " -- " + userPasswordResult + "</h1>");
 		}
 		catch(Exception e) {
 			System.out.println("");

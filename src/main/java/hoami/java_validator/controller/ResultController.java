@@ -2,17 +2,21 @@ package hoami.java_validator.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static hoami.java_validator.Validator.Rules.ComparableRuleBuilder.cmpRule;
 import static hoami.java_validator.Validator.Rules.StringRuleBuilder.stringRule;
 import static hoami.java_validator.Validator.ValidatorBuilder.rules;
 
 import hoami.java_validator.Validator.Validator;
+import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
+import hoami.java_validator.Validator.Core.Selector;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 /**
  * Servlet implementation class ResultController
@@ -42,20 +46,30 @@ public class ResultController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		
 		String value = (String) request.getParameter("email");
 		
 		System.out.println("Entered servlet email result");
 		PrintWriter pw = response.getWriter();
 		MessageFactory.create();
-        Validator nameValidator = rules(stringRule("email").notEmpty().minLength(5).notStartsWith("@").notMatches("admin@gmail.com")).build();
-        ErrorManager errors = nameValidator.validate_error_manager(value);
-        System.out.println(errors.getResult());
-        if(errors.getResult().length() > 0) {
-        	 pw.write("<h1>" + errors.getResult() + "</h1>");
-        }
-        else {
-        	 pw.write("<h1>Your email is legal</h1>");
-        }
+		
+		Validator emailValidator = ValidatorRegistry.register("email", rules(stringRule("email").notEmpty().minLength(5).matches(EMAIL_PATTERN).notMatches("admin@gmail.com")));
+		
+		try {
+			Selector userSelector = emailValidator.validate_selector(value);
+			String emailResult = userSelector.select("email", String.class);
+	        
+			System.out.println("");
+			System.out.println(emailResult);
+			pw.println("<h1>Your user data is valid: " + emailResult + "</h1>");
+		}
+		catch(Exception e) {
+			System.out.println("");
+			ErrorManager errors = emailValidator.validate_error_manager(value);
+			e.printStackTrace();
+			pw.println("<h1>" + errors.getResult() + "</h1>");
+		}
 	}
 
 }

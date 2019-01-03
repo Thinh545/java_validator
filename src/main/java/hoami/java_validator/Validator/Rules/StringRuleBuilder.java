@@ -19,7 +19,7 @@ public class StringRuleBuilder<F extends StringRuleBuilder<F>> extends Comparabl
     protected StringRuleBuilder(ParametrizedRules<String> parameterRule) {
         super(parameterRule);
     }
-
+    
     @ReadConstraints(constraints = " use empty - ")
     public F empty() {
     	readConstraints("empty");
