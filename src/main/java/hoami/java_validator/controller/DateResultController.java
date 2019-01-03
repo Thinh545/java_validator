@@ -16,6 +16,7 @@ import hoami.java_validator.Validator.Validator;
 import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
 import hoami.java_validator.Validator.Core.Selector;
+import hoami.java_validator.Validator.Messages.EngMessagesFactory;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 
 import java.util.Date;
@@ -59,7 +60,7 @@ public class DateResultController extends HttpServlet {
 			e.printStackTrace();
 		}
 		PrintWriter pw = response.getWriter();
-		MessageFactory.create();
+		EngMessagesFactory.create();
 		
 		Date min = new Date();
 		Date max = new Date();

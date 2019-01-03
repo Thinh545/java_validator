@@ -17,6 +17,7 @@ import hoami.java_validator.Validator.Validator;
 import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
 import hoami.java_validator.Validator.Core.Selector;
+import hoami.java_validator.Validator.Messages.EngMessagesFactory;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 /**
  * Servlet implementation class ResultController
@@ -52,7 +53,7 @@ public class ResultController extends HttpServlet {
 		
 		System.out.println("Entered servlet email result");
 		PrintWriter pw = response.getWriter();
-		MessageFactory.create();
+		EngMessagesFactory.create();
 		
 		Validator emailValidator = ValidatorRegistry.register("email", rules(stringRule("email").notEmpty().minLength(5).matches(EMAIL_PATTERN).notMatches("admin@gmail.com")));
 		

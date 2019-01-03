@@ -12,6 +12,7 @@ import hoami.java_validator.Validator.Validator;
 import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
 import hoami.java_validator.Validator.Core.Selector;
+import hoami.java_validator.Validator.Messages.EngMessagesFactory;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 
 import static hoami.java_validator.Validator.Rules.StringRuleBuilder.stringRule;
@@ -55,10 +56,10 @@ public class PasswordResultController extends HttpServlet {
 		
 		System.out.println("Entered servlet email result");
 		PrintWriter pw = response.getWriter();
-		MessageFactory.create();
+		EngMessagesFactory.create();
 		
 		Validator passwordValidator = ValidatorRegistry.register("password", rules(stringRule("password").notEmpty().minLength(5).maxLength(20).matches(PASSWORD_PATTERN)));
-		
+				
 		try {
 			Selector userSelector = passwordValidator.validate_selector(value);
 			String passwordResult = userSelector.select("password", String.class);

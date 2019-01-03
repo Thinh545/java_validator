@@ -18,6 +18,7 @@ import hoami.java_validator.Validator.Validator;
 import hoami.java_validator.Validator.ValidatorRegistry;
 import hoami.java_validator.Validator.Core.ErrorManager;
 import hoami.java_validator.Validator.Core.Selector;
+import hoami.java_validator.Validator.Messages.EngMessagesFactory;
 import hoami.java_validator.Validator.Messages.MessageFactory;
 import hoami.java_validator.Validator.Util.User;
 
@@ -53,6 +54,7 @@ public class UserResultController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		
 		String username = (String) request.getParameter("username");
 		int userage = -1;
@@ -70,35 +72,37 @@ public class UserResultController extends HttpServlet {
 		User user = new User(username, userage, userdate, useremail, userpassword);
 		
 		PrintWriter pw = response.getWriter();
-		MessageFactory.create();
+		EngMessagesFactory.create();
 		Date minDate = new Date(), maxDate = new Date();
 		minDate.setTime(0);
 		
+		Validator emailValidator = rules(stringRule("email").notEmpty().minLength(5).matches(EMAIL_PATTERN).notMatches("admin@gmail.com")).build();
+		
 		Validator userValidator = ValidatorRegistry.register("user_validator", rules(
-				stringRule("username").notEmpty().maxLength(50),
-				cmpRule("userage").notNull().greatherEqualsThan(1),
-				cmpRule("userbirthday").notNull().range(minDate, maxDate),
-				stringRule("useremail").notEmpty().notStartsWith("@").contains("@gmail.com").endsWith("com"),
-				stringRule("userpassword").notEmpty().notContains("!").notContains("&").notContains("*").minLength(8).maxLength(50)
-		));
+				stringRule("user.name").notEmpty().maxLength(50),
+				cmpRule("user.age").notNull().greatherEqualsThan(1),
+				cmpRule("user.birthday").notNull().range(minDate, maxDate),
+				stringRule("user.email").notNull(),
+				stringRule("user.password").notEmpty().notContains("!").notContains("&").notContains("*").minLength(8).maxLength(50)
+		).include(emailValidator, "user"));
 				
 		try {
 			Selector userSelector = userValidator.validate_selector(user);
-			String userNameResult = userSelector.select("username", String.class);
-			int userAgeResult = userSelector.select("userage", Integer.class);
-			Date userBirthdayResult = userSelector.select("userbirthday", Date.class);
-			String userEmailResult = userSelector.select("useremail", String.class);
-			String userPasswordResult = userSelector.select("userpassword", String.class);
+			String userNameResult = userSelector.select("user.name", String.class);
+			int userAgeResult = userSelector.select("user.age", Integer.class);
+			Date userBirthdayResult = userSelector.select("user.birthday", Date.class);
+			String userEmailResult = userSelector.select("user.email", String.class);
+			String userPasswordResult = userSelector.select("user.password", String.class);
 	        
 			System.out.println("");
 			System.out.println(userNameResult + " -- " + userAgeResult + " -- " + userBirthdayResult + " -- " + userEmailResult + " -- " + userPasswordResult);
-			pw.println("<h1>Your user data is valid: " + userNameResult + " -- " + userAgeResult + " -- " + userBirthdayResult + " -- " + userEmailResult + " -- " + userPasswordResult + "</h1>");
+			pw.println("Your user data is valid: " + userNameResult + " -- " + userAgeResult + " -- " + userBirthdayResult + " -- " + userEmailResult + " -- " + userPasswordResult);
 		}
 		catch(Exception e) {
 			System.out.println("");
-			ErrorManager errors = userValidator.validate_error_manager(username, userage, userdate, useremail, userpassword);
+			ErrorManager errors = userValidator.validate_error_manager(user);
 			e.printStackTrace();
-			pw.write("<h1>" + errors.getResult() + "</h1>");
+			pw.write(errors.getResult());
 		}
 	}
 
